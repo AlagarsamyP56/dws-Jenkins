@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a938033d-24e1-49cd-8cef-683e6706e369" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="dws-jenkinsFlow" doc:id="058e454f-ed55-49d8-af63-33dca9422a31" >
+		<http:listener doc:name="Listener" doc:id="ae22b0c5-067b-4f7e-881b-3fbe9578ba9f" config-ref="HTTP_Listener_config" path="/api"/>
+		<logger level="INFO" doc:name="Logger" doc:id="b8bbb039-66bc-4666-b138-732962909677" message="start meassage #[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="27981578-94df-49c8-ae18-84f9bde64553" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"hey..."]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
