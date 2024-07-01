@@ -16,7 +16,7 @@ stage('Deploy CloudHubs') {
 
 environment {
 
-ANYPOINT_CREDENTIALS = credentials('anypoint.alagar')
+ANYPOINT_CREDENTIALS = credentials('anypoint.hrms')
 
 }
 
