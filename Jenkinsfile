@@ -22,9 +22,9 @@ pipeline {
                 echo 'Deploying to the configured environment….'
                 script {
                     if (isUnix()) {
-                        sh 'mvn clean deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 '
+                        sh 'mvn clean deploy -DmuleDeploy -Dusername=dwinhrms -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1 '
                     } else {
-                        bat 'mvn clean deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1'
+                        bat 'mvn clean deploy -DmuleDeploy -Dusername=dwinhrms -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1'
                     }
                 }
             }
