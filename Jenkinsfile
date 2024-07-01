@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Build Application') {
             steps {
@@ -21,10 +21,12 @@ pipeline {
                 echo 'Deploying mule project due to the latest code commit…'
                 echo 'Deploying to the configured environment….'
                 script {
+                    def username = env.ANYPOINT_CREDENTIALS_USR
+                    def password = env.ANYPOINT_CREDENTIALS_PSW
                     if (isUnix()) {
-                        sh 'mvn clean deploy -DmuleDeploy -Dusername=dwinhrms -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1 '
+                        sh "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1 -Denv=dev -Dsecure.key=******"
                     } else {
-                        bat 'mvn clean deploy -DmuleDeploy -Dusername=dwinhrms -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1'
+                        bat "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1 -Denv=dev -Dsecure.key=******"
                     }
                 }
             }
