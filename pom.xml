@@ -25,25 +25,25 @@
 				<version>3.2.0</version>
 			</plugin>
 			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<version>${mule.maven.plugin.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<cloudHubDeployment>
-						<uri>https://anypoint.mulesoft.com/</uri>
-						<muleVersion>${app.runtime}</muleVersion>
-						<username>'dwinhrms'</username>
-						<password>'Good@123'</password>
-						<applicationName>${project.artifactId}</applicationName>
-						<environment>Sandbox</environment>
-						<workerType>${workerType}</workerType>
-						<workers>1</workers>
-						<objectStoreV2>true</objectStoreV2>
-					</cloudHubDeployment>
-				</configuration>
-				
-			</plugin>
+    <groupId>org.mule.tools.maven</groupId>
+    <artifactId>mule-maven-plugin</artifactId>
+    <version>${mule.maven.plugin.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <cloudHubDeployment>
+            <uri>https://anypoint.mulesoft.com/</uri>
+            <muleVersion>${app.runtime}</muleVersion>
+            <username>${env.ANYPOINT_CREDENTIALS_USR}</username>
+            <password>${env.ANYPOINT_CREDENTIALS_PSW}</password>
+            <applicationName>${project.artifactId}</applicationName>
+            <environment>Sandbox</environment>
+            <workerType>${workerType}</workerType>
+            <workers>1</workers>
+            <objectStoreV2>true</objectStoreV2>
+        </cloudHubDeployment>
+    </configuration>
+</plugin>
+
 		</plugins>
 	</build>
 
