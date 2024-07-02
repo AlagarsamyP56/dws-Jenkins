@@ -21,9 +21,9 @@ pipeline {
                     
                     // Run the Docker container
                     if (isUnix()) {
-                        sh "docker run -d --name ${containerName} -p 8081:8081 dockermule"
+                        sh "docker run -d --name ${containerName} -p 8083:8083 dockermule"
                     } else {
-                        bat "docker run -d --name ${containerName} -p 8081:8081 dockermule"
+                        bat "docker run -d --name ${containerName} -p 8083:8083 dockermule"
                     }
                     
                     // Copy the JAR file to the Docker container
