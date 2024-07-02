@@ -24,9 +24,9 @@ pipeline {
                     def username = alagar12345678
                     def password = Good@123
                     if (isUnix()) {
-                        sh "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1"
+                        sh "mvn clean deploy -DmuleDeploy -Dusername=alagar12345678 -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1"
                     } else {
-                        bat "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1"
+                        bat "mvn clean deploy -DmuleDeploy -Dusername=alagar12345678 -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1"
                     }
                 }
             }
