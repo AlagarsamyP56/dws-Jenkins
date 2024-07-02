@@ -16,15 +16,18 @@ pipeline {
         stage('Deploy to Docker') {
             steps {
                 script {
-                    // Determine the JAR file path dynamically
                     def jarPath = ''
                     if (isUnix()) {
                         jarPath = sh(script: "ls target/*.jar", returnStdout: true).trim()
                     } else {
-                        jarPath = bat(script: "for %i in (target\\*.jar) do @echo %i", returnStdout: true).trim()
+                        jarPath = bat(script: "for %i in (target\\*.jar) do @echo %i", returnStdout: true).trim().split('\r\n')[-1].trim()
                     }
 
-                    // Define Docker container name
+                    // Ensure the path uses forward slashes on Windows
+                    if (!isUnix()) {
+                        jarPath = jarPath.replace("\\", "/")
+                    }
+
                     def containerName = 'jenkins-mule-api'
                     
                     // Run the Docker container
