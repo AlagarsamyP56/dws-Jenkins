@@ -6,9 +6,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'mvn clean install'
+                        sh 'mvn clean install -X'
                     } else {
-                        bat 'mvn clean install'
+                        bat 'mvn clean install -X'
                     }
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image with the MuleSoft runtime
-                    sh 'docker build -t demo-mule-api .'
+                    sh 'docker build -t my-mule-app .'
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
                 script {
                     // Run the Docker container
                     sh """
-                    docker run -d --name mule-container -v /path/to/your/local/m2/repository:/root/.m2 demo-mule-api
+                    docker run -d --name mule-container -v /path/to/your/local/m2/repository:/root/.m2 my-mule-app
                     """
 
                     // Copy the JAR file from the local filesystem to the Docker container
