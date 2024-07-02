@@ -23,16 +23,30 @@ pipeline {
                         // Print the JAR file path for debugging
                         echo "JAR file path: ${jarPath}"
                     } else {
-                        // Get the JAR file path
-                        jarPath = bat(script: 'for %i in (target\\*.jar) do @echo %i', returnStdout: true).split('\r\n').find { it.contains('.jar') }.trim()
+                        // Use PowerShell to get the JAR file path
+                        jarPath = bat(script: 'powershell -Command "Get-ChildItem target\\*.jar | Select-Object -First 1 | ForEach-Object { $_.FullName }"', returnStdout: true).trim()
                         // Print the JAR file path for debugging
                         echo "JAR file path: ${jarPath}"
                     }
 
-                    def containerName = 'jenkins-mule-api'
+                    // Verify JAR file existence
+                    if (isUnix()) {
+                        sh "ls -l ${jarPath}"
+                    } else {
+                        bat "dir \"${jarPath}\""
+                    }
 
-                    // Print the container name for debugging
+                    def containerName = 'jenkins-mule-api'
                     echo "Docker container name: ${containerName}"
+
+                    // Stop and remove existing container
+                    if (isUnix()) {
+                        sh "docker stop ${containerName} || true"
+                        sh "docker rm ${containerName} || true"
+                    } else {
+                        bat "docker stop ${containerName} || exit 0"
+                        bat "docker rm ${containerName} || exit 0"
+                    }
 
                     // Run the Docker container
                     if (isUnix()) {
@@ -41,7 +55,6 @@ pipeline {
                         bat "docker run -d --name ${containerName} -p 8083:8083 dockermule"
                     }
 
-                    // Print a message indicating that the JAR file will be copied
                     echo "Copying JAR file to Docker container: ${jarPath}"
 
                     // Copy the JAR file to the Docker container
