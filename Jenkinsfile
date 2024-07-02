@@ -20,8 +20,7 @@ pipeline {
                     if (isUnix()) {
                         jarPath = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
                     } else {
-                        // Use PowerShell to get the jar file path
-                        jarPath = bat(script: 'powershell -Command "Get-ChildItem target\\*.jar | Select-Object -First 1 | ForEach-Object { $_.FullName }"', returnStdout: true).trim()
+                        jarPath = bat(script: 'for %i in (target\\*.jar) do @echo %i', returnStdout: true).trim()
                     }
 
                     def containerName = 'jenkins-mule-api'
