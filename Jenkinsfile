@@ -23,9 +23,9 @@ pipeline {
                 script {
                     
                     if (isUnix()) {
-                        sh "mvn clean deploy -DmuleDeploy -Dusername=alagar12345678 -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1"
+                        sh "mvn clean deploy -DmuleDeploy"
                     } else {
-                        bat "mvn clean deploy -DmuleDeploy -Dusername=alagar12345678 -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1"
+                        bat "mvn clean deploy -DmuleDeploy"
                     }
                 }
             }
