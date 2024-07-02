@@ -16,10 +16,13 @@ pipeline {
         stage('Deploy to Docker') {
             steps {
                 script {
-                    // Define the workspace and target paths
-                    def workspaceDir = env.WORKSPACE
-                    def jarFileName = 'dws-jenkins-1.0.0-SNAPSHOT-mule-application.jar'
-                    def jarPath = "${workspaceDir}/target/${jarFileName}"
+                    // Determine the JAR file path dynamically
+                    def jarPath = ''
+                    if (isUnix()) {
+                        jarPath = sh(script: "ls target/*.jar", returnStdout: true).trim()
+                    } else {
+                        jarPath = bat(script: "for %i in (target\\*.jar) do @echo %i", returnStdout: true).trim()
+                    }
 
                     // Define Docker container name
                     def containerName = 'jenkins-mule-api'
