@@ -24,9 +24,9 @@ pipeline {
                     def username = env.ANYPOINT_CREDENTIALS_USR
                     def password = env.ANYPOINT_CREDENTIALS_PSW
                     if (isUnix()) {
-                        sh "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1 -Denv=dev -Dsecure.key=******"
+                        sh "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1"
                     } else {
-                        bat "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1 -Denv=dev -Dsecure.key=******"
+                        bat "mvn clean deploy -DmuleDeploy -Dusername=${username} -Dpassword=${password} -DworkerType=Micro -Dworkers=1"
                     }
                 }
             }
