@@ -18,30 +18,26 @@ pipeline {
                 script {
                     def jarPath = ''
                     if (isUnix()) {
-                        jarPath = sh(script: "ls target/*.jar", returnStdout: true).trim()
+                        jarPath = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
                     } else {
-                        jarPath = bat(script: "for %i in (target\\*.jar) do @echo %i", returnStdout: true).trim().split('\r\n')[-1].trim()
-                    }
-
-                    // Ensure the path uses forward slashes on Windows
-                    if (!isUnix()) {
-                        jarPath = jarPath.replace("\\", "/")
+                        // Use PowerShell to get the jar file path
+                        jarPath = bat(script: 'powershell -Command "Get-ChildItem target\\*.jar | Select-Object -First 1 | ForEach-Object { $_.FullName }"', returnStdout: true).trim()
                     }
 
                     def containerName = 'jenkins-mule-api'
-                    
+
                     // Run the Docker container
                     if (isUnix()) {
                         sh "docker run -d --name ${containerName} -p 8083:8083 dockermule"
                     } else {
                         bat "docker run -d --name ${containerName} -p 8083:8083 dockermule"
                     }
-                    
+
                     // Copy the JAR file to the Docker container
                     if (isUnix()) {
                         sh "docker cp ${jarPath} ${containerName}:/opt/mule/apps"
                     } else {
-                        bat "docker cp ${jarPath} ${containerName}:/opt/mule/apps"
+                        bat "docker cp \"${jarPath}\" ${containerName}:/opt/mule/apps"
                     }
                 }
             }
