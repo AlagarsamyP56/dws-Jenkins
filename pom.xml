@@ -35,9 +35,9 @@
             <muleVersion>${app.runtime}</muleVersion>
             <username>alagar12345678</username>
             <password>Good@123</password>
-            <applicationName>${project.artifactId}</applicationName>
+            <applicationName>sssssssssssssss</applicationName>
             <environment>Sandbox</environment>
-            <workerType>${workerType}</workerType>
+            <workerType>Micro</workerType>
             <workers>1</workers>
             <objectStoreV2>true</objectStoreV2>
         </cloudHubDeployment>
