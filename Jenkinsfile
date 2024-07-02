@@ -18,16 +18,14 @@ pipeline {
                 script {
                     def jarPath = ''
                     if (isUnix()) {
-                        // Get the JAR file path
                         jarPath = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
-                        // Print the JAR file path for debugging
                         echo "JAR file path: ${jarPath}"
                     } else {
-                        // Use PowerShell to get the JAR file path
                         jarPath = bat(script: 'powershell -Command "Get-ChildItem target\\*.jar | Select-Object -First 1 | ForEach-Object { $_.FullName }"', returnStdout: true).trim()
-                        // Print the JAR file path for debugging
                         echo "JAR file path: ${jarPath}"
                     }
+
+                    echo "Verified JAR file path: ${jarPath}"
 
                     // Verify JAR file existence
                     if (isUnix()) {
