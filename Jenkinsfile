@@ -18,12 +18,21 @@ pipeline {
                 script {
                     def jarPath = ''
                     if (isUnix()) {
+                        // Get the JAR file path
                         jarPath = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
+                        // Print the JAR file path for debugging
+                        echo "JAR file path: ${jarPath}"
                     } else {
-                        jarPath = bat(script: 'for %i in (target\\*.jar) do @echo %i', returnStdout: true).trim()
+                        // Get the JAR file path
+                        jarPath = bat(script: 'for %i in (target\\*.jar) do @echo %i', returnStdout: true).split('\r\n').find { it.contains('.jar') }.trim()
+                        // Print the JAR file path for debugging
+                        echo "JAR file path: ${jarPath}"
                     }
 
                     def containerName = 'jenkins-mule-api'
+
+                    // Print the container name for debugging
+                    echo "Docker container name: ${containerName}"
 
                     // Run the Docker container
                     if (isUnix()) {
@@ -31,6 +40,9 @@ pipeline {
                     } else {
                         bat "docker run -d --name ${containerName} -p 8083:8083 dockermule"
                     }
+
+                    // Print a message indicating that the JAR file will be copied
+                    echo "Copying JAR file to Docker container: ${jarPath}"
 
                     // Copy the JAR file to the Docker container
                     if (isUnix()) {
