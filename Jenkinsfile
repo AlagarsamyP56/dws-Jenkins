@@ -21,8 +21,7 @@ pipeline {
                 echo 'Deploying mule project due to the latest code commit…'
                 echo 'Deploying to the configured environment….'
                 script {
-                    def username = alagar12345678
-                    def password = Good@123
+                    
                     if (isUnix()) {
                         sh "mvn clean deploy -DmuleDeploy -Dusername=alagar12345678 -Dpassword=Good@123 -DworkerType=Micro -Dworkers=1"
                     } else {
