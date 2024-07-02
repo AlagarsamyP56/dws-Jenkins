@@ -20,12 +20,10 @@ pipeline {
                     if (isUnix()) {
                         // Get the JAR file path on Unix
                         jarPath = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
-                        // Print the JAR file path for debugging
                         echo "JAR file path: ${jarPath}"
                     } else {
                         // Get the JAR file path using PowerShell on Windows
                         jarPath = bat(script: 'powershell -Command "Get-ChildItem target\\*.jar | Select-Object -First 1 | ForEach-Object { $_.FullName }"', returnStdout: true).trim()
-                        // Print the JAR file path for debugging
                         echo "JAR file path: ${jarPath}"
                     }
 
