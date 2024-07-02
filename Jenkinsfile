@@ -24,7 +24,7 @@ pipeline {
                     } else {
                         // Get the JAR file path using PowerShell on Windows
                         jarPath = bat(script: 'powershell -Command "Get-ChildItem target\\*.jar | Select-Object -First 1 | ForEach-Object { $_.FullName }"', returnStdout: true).trim()
-                        echo "JAR file path: ${jarPath}"
+                        echo "JAR file path else: ${jarPath}"
                     }
 
                     echo "Verified JAR file path: ${jarPath}"
