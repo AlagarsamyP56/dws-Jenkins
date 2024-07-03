@@ -21,26 +21,18 @@ pipeline {
                     def containerName = 'demo'
                     echo "Docker container name: ${containerName}"
 
-                    // Find an available port
-                    def port = bat(script: 'powershell -Command "(New-Object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Any, 0)).LocalEndpoint.Port"', returnStdout: true).trim()
-
-                    echo "Selected port: ${port}"
-
                     // Stop and remove existing container
                     bat "docker stop ${containerName} || exit 0"
                     bat "docker rm ${containerName} || exit 0"
 
-                    // Run the Docker container with the dynamic port
-                    bat "docker run -d --name ${containerName} -p ${port}:${port} dockermule"
+                    // Run the Docker container
+                    bat "docker run -d --name ${containerName}  dockermule"
 
                     // Print a message indicating that the JAR file will be copied
                     echo "Copying JAR file to Docker container: ${jarPath}"
 
                     // Copy the JAR file to the Docker container
                     bat "docker cp \"${jarPath}\" ${containerName}:/opt/mule/apps"
-
-                    // Print a message with the dynamic port
-                    echo "Application is running on port: ${port}"
                 }
             }
         }
