@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5becd79d-822e-49e6-ae94-83b64373d1e4" >
-		<http:listener-connection host="0.0.0.0" port="8081" />
+		<http:listener-connection host="0.0.0.0" port="8082" />
 	</http:listener-config>
 	<flow name="docker_demoFlow" doc:id="9ff7d353-c173-457d-953b-a737663e4506" >
 		<http:listener doc:id="34e5a1a8-6422-408f-af65-e522c6754c39" doc:name="" config-ref="HTTP_Listener_config" path="/api"/>
