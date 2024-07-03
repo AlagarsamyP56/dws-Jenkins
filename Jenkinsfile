@@ -31,7 +31,7 @@ pipeline {
                     bat "docker rm ${containerName} || exit 0"
 
                     // Run the Docker container with the dynamic port
-                    bat "docker run -d --name ${containerName} -p ${port}:8082 dockermule"
+                    bat "docker run -d --name ${containerName} -p ${port}:${port} dockermule"
 
                     // Print a message indicating that the JAR file will be copied
                     echo "Copying JAR file to Docker container: ${jarPath}"
