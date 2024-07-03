@@ -27,7 +27,7 @@ pipeline {
 
                     echo "Verified JAR file path: ${jarPath}"
 
-                    def containerName = 'jenkins-mule-apii'
+                    def containerName = 'demo'
                     echo "Docker container name: ${containerName}"
 
                     // Stop and remove existing container
