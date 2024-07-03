@@ -20,16 +20,14 @@ pipeline {
                     if (isUnix()) {
                         // Get the JAR file path on Unix
                         jarPath = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
-                        echo "JAR file path: ${jarPath}"
                     } else {
                         // Get the JAR file path using PowerShell on Windows
                         jarPath = bat(script: 'powershell -Command "Get-ChildItem target\\*.jar | Select-Object -First 1 | ForEach-Object { $_.FullName }"', returnStdout: true).trim()
-                        echo "JAR file path else: ${jarPath}"
                     }
 
                     echo "Verified JAR file path: ${jarPath}"
 
-                    def containerName = 'jenkins-mule-api'
+                    def containerName = 'jenkins-mule-apii'
                     echo "Docker container name: ${containerName}"
 
                     // Stop and remove existing container
@@ -43,9 +41,9 @@ pipeline {
 
                     // Run the Docker container
                     if (isUnix()) {
-                        sh "docker run -d --name ${containerName} -p 8083:8083 dockermule"
+                        sh "docker run -d --name ${containerName} -p 8084:8084 dockermule"
                     } else {
-                        bat "docker run -d --name ${containerName} -p 8083:8083 dockermule"
+                        bat "docker run -d --name ${containerName} -p 8084:8084 dockermule"
                     }
 
                     // Print a message indicating that the JAR file will be copied
