@@ -18,7 +18,6 @@ pipeline {
 
                     echo "Verified JAR file path: ${jarPath}"
 
-                    // Set the Docker container name based on the pipeline job name
                     def containerName = env.JOB_NAME
                     echo "Docker container name: ${containerName}"
 
@@ -27,7 +26,7 @@ pipeline {
                     bat "docker rm ${containerName} || exit 0"
 
                     // Run the Docker container
-                    bat "docker run -d --name ${containerName} -p 8081:8081 dockermule"
+                    bat "docker run -d --name ${containerName} -p 8085:8085 dockermule"
 
                     // Print a message indicating that the JAR file will be copied
                     echo "Copying JAR file to Docker container: ${jarPath}"
