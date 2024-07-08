@@ -8,6 +8,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<http:listener-connection host="0.0.0.0" port="8086" />
 	</http:listener-config>
 	<flow name="docker_demoFlow" doc:id="9ff7d353-c173-457d-953b-a737663e4506" >
+		<logger level="INFO" doc:name="Initial logger" doc:id="1b88c1d4-91bf-4df5-bd78-2aad23e9eea7" message="Forget Possword flow start " />
 		<http:listener doc:id="34e5a1a8-6422-408f-af65-e522c6754c39" doc:name="" config-ref="HTTP_Listener_config" path="/api"/>
 		<set-payload value='#["hey...."]' doc:name="Set Payload" doc:id="4e452c7d-d56e-4d9c-9488-db4fb38226c1" />
 	</flow>
